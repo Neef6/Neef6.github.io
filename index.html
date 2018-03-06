@@ -231,7 +231,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h1><h2 id="distinction"><a href="#distinction" class="headerlink" title="distinction"></a>distinction</h2><table>
+              <h1 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h1><h2 id="distinction"><a href="#distinction" class="headerlink" title="distinction"></a>distinction</h2><table>
 <thead>
 <tr>
 <th></th>
@@ -267,205 +267,7 @@
 <p>熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)</p>
 </blockquote>
 <p>公式：是每一类的出现概率p的logP倍和</p>
-<blockquote>
-<p>取log是因为从观测角度。两个变量的信息量单独观察和一起观察应该是一样的是+，而从概率角度，两个独立的随机变量P（X,Y）=P（X）*P(y)。所以选择log函数</p>
-</blockquote>
-</li>
-</ol>
-<ol>
-<li><p>信息增益</p>
-<blockquote>
-<p>表示得知属性 a 的信息而使得样本集合不确定度减少的程度</p>
-</blockquote>
-<p>信息增益 = 熵 - 条件熵</p>
-</li>
-<li><p>缺点</p>
-<blockquote>
-<p>ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。</p>
-</blockquote>
-<p>意思就是，集合中拥有这个属性的样本有很多</p>
-</li>
-</ol>
-<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>基于信息增益率做切分</p>
-<ol>
-<li><p>公式</p>
-<blockquote>
-<p>信息增益/属性a的固有值-IV（a）</p>
-<p>IV（a）,选取该属性，分成的V类别数越大，IV(a)就越大，如果仅仅只用信息增益来选择属性的话，那么我们偏向于选择分成子节点类别大的那个特征。</p>
-</blockquote>
-</li>
-<li><p>比ID3好的原因</p>
-<ol>
-<li><p>3可取值数目较多的属性有所偏好。</p>
-</li>
-<li><p>看到增益率准则其实对可取类别数目较少的特征有所偏好！毕竟分母越小，整体越大。</p>
-</li>
-<li><p>仅仅只用信息增益来选择属性的话，那么我们偏向于选择分成子节点类别大的那个特征。</p>
-<blockquote>
-<p>按照增益率来划分节点，分成的类别数目越多，增益率的值越大</p>
-</blockquote>
-</li>
-<li><p>C4.5还弥补了ID3中不能处理特征属性值<em>连续</em>的问题。但是，对连续属性值需要扫描排序，会使C4.5性能下降</p>
-<blockquote>
-<p>c4.5可以多分叉</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>信息增益率指的是信息增大的比率，而不再是取决于数量</p>
-</li>
-</ol>
-<h3 id="Gini"><a href="#Gini" class="headerlink" title="Gini"></a>Gini</h3><ol>
-<li><p>公式</p>
-<blockquote>
-<p>这个样本被选中的概率乘以它被分错的概率</p>
-</blockquote>
-<p>对不同分类属性，比如男 女，去算gini?</p>
-</li>
-<li><p>表示的意义</p>
-<blockquote>
-<p>表示一个随机选中的样本在子集中被分错的可能性</p>
-</blockquote>
-</li>
-<li><p>终止条件</p>
-</li>
-<li><p>分析步骤</p>
-<ol>
-<li>多路分叉</li>
-</ol>
-</li>
-</ol>
-<h2 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h2><h3 id="DT-1"><a href="#DT-1" class="headerlink" title="DT"></a>DT</h3><h3 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h3><p>classification and regression tree</p>
-<ul>
-<li><p>特点</p>
-<ul>
-<li>分类回归树是一棵二叉树，且每个非叶子节点都有两个孩子，所以对于第一棵子树其叶子节点数比非叶子节点数多1。</li>
-</ul>
-</li>
-<li><p>CART与ID3的区别</p>
-<ul>
-<li><p>CART中用于选择变量的不纯性度量是Gini指数</p>
-<p>​</p>
-</li>
-<li><p>如果目标变量是标称的，并且是具有两个以上的类别，则CART可能考虑将目标类别合并成两个超类别（双化）；</p>
-<blockquote>
-<p>标量：定类变量，比如男女</p>
-<p>超类别？</p>
-</blockquote>
-</li>
-<li><p>如果目标变量是连续的，则CART算法找出一组基于树的回归方程来预测目标变量。</p>
-</li>
-<li><p>模型如此设计的原因</p>
-<blockquote>
-<p>选择gini的原因</p>
-<p>ID3，C4.5 大量的log计算。gini</p>
-<p>cart，只对某个特征进行二分原因</p>
-<p><a href="https://www.zhihu.com/question/36659925" target="_blank" rel="noopener">简化gini计算，模型是二叉树也更优雅</a></p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Regression-DT"><a href="#Regression-DT" class="headerlink" title="Regression DT"></a>Regression DT</h3><ol>
-<li>衡量标准：最小化平方差<ol>
-<li>每一个节点都有预测值</li>
-<li>被预测出错的人数越多，错的越离谱，平方误差就越大</li>
-</ol>
-</li>
-</ol>
-<h3 id="Boosting-DT"><a href="#Boosting-DT" class="headerlink" title="Boosting DT"></a>Boosting DT</h3><ol>
-<li><p>是迭代多棵回归树，多棵。是指迭代中的多棵还是多个，多个怎么计算</p>
-<blockquote>
-<p>一个数拟合好后，以残差再拟合一棵树，通过另一个属性再迭代</p>
-</blockquote>
-</li>
-<li><p>以回归树再拟合得到一个当前的残差，残差的作用是为了便于计算？</p>
-</li>
-<li><p>作用：提升树利用加法模型和前向分步算法实现学习的优化过程。当损失函数时平方损失和指数损失函数时，每一步的优化很简单。</p>
-</li>
-<li><p>过程。提升树是迭代多棵回归树来共同决策。当采用平方误差损失函数时，每一棵回归树学习的是之前所有树的结论和残差，拟合得到一个当前的残差回归树</p>
-</li>
-<li><p>主要是优化学习过程</p>
-</li>
-<li><p>优化的方法。加快优化过程</p>
-</li>
-</ol>
-<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><p>梯度提升决策树</p>
-<ol>
-<li>GBDT是回归树，做处理也可用于分类</li>
-<li>区别于分类树，树的每一个节点都有一个预测值。等于所有值的平均</li>
-<li>衡量最好的标准是最小化平方差-分支依据</li>
-<li>预测出错的人数越多，错的越离谱，平方误差就越大</li>
-<li>分支终止条件是：唯一或者达到设定的终止条件</li>
-</ol>
-<hr>
-<ol>
-<li><p>采用的是加法模型</p>
-</li>
-<li><p>每轮迭代产生一个弱分类器，通过不断降低偏差来提高最终分类器的精度。（弱分类器前提是低方差和高偏差）</p>
-</li>
-<li><p>弱分类器一般选择CART</p>
-</li>
-<li><p>总分类器是每轮训练得到的弱分类器加权求和得到的</p>
-</li>
-<li><p>与bdt的区别。bdt使用平方差比较好计算方差</p>
-<p>但是一般的损失函数不容易计算，使用负梯度得到残差的近似值。计算简单</p>
-</li>
-</ol>
-<hr>
-<p>GBDT和随机森林的相同点：</p>
-<p>1、都是由多棵树组成</p>
-<p>2、最终的结果都是由多棵树一起决定</p>
-<p>GBDT和随机森林的不同点：</p>
-<p>1、组成随机森林的树可以是分类树，也可以是回归树；而GBDT只由回归树组成</p>
-<p>2、组成随机森林的树可以并行生成；而GBDT只能是串行生成</p>
-<p>3、对于最终的输出结果而言，随机森林采用多数投票等；而GBDT则是将所有结果累加起来，或者加权累加起来</p>
-<p>4、随机森林对异常值不敏感，GBDT对异常值非常敏感</p>
-<blockquote>
-<p>随机是对数据一视同仁，gbdt是弱分类器的权值集成</p>
-</blockquote>
-<p>5、随机森林对训练集一视同仁，GBDT是基于权值的弱分类器的集成</p>
-<p>6、随机森林是通过减少模型方差提高性能，GBDT是通过减少模型偏差提高性能</p>
-<blockquote>
-<p>？</p>
-</blockquote>
-<h3 id="Random-Tree"><a href="#Random-Tree" class="headerlink" title="Random Tree"></a>Random Tree</h3><h4 id="生成方法"><a href="#生成方法" class="headerlink" title="生成方法"></a>生成方法</h4><p>1.从样本集中通过重采样的方式产生n个样本</p>
-<p>2.假设样本特征数目为a，对n个样本选择a中的k个特征，用建立决策树的方式获得最佳分割点</p>
-<p>3.重复m次，产生m棵决策树</p>
-<p>4.多数投票机制来进行预测</p>
-<p>（需要注意的一点是，这里m是指循环的次数，n是指样本的数目，n个样本构成训练的样本集，而m次循环中又会产生m个这样的样本集）</p>
-<h3 id="AdaBoost"><a href="#AdaBoost" class="headerlink" title="AdaBoost"></a>AdaBoost</h3><ol>
-<li>AdaBoost的实现是一个渐进的过程，从一个最基础的分类器开始，每次寻找一个最能解决当前错误样本的分类器。用加权取和(weighted sum)的方式把这个新分类器结合进已有的分类器中。</li>
-<li>它的好处是自带了特征选择（feature selection），只使用在训练集中发现有效的特征(feature)。这样就降低了分类时需要计算的特征数量，也在一定程度上解决了高维数据难以理解的问题</li>
-<li><a href="https://www.jianshu.com/p/a6426f4c4e64" target="_blank" rel="noopener">Adaboost</a></li>
-</ol>
-<h3 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h3><p><strong>xgboost</strong>是Gradient Boosting的一种高效系统实现，并不是一种单一算法。xgboost里面的基学习器除了用tree(gbtree)，也可用线性分类器(gblinear)。而GBDT则特指梯度提升决策树算法。</p>
-<p>xgboost</p>
-<ol>
-<li>显式地将树模型的复杂度作为正则项加在优化目标</li>
-<li>公式推导里用到了二阶导数信息，而普通的GBDT只用到一阶</li>
-<li>允许使用column(feature) sampling来防止过拟合，借鉴了Random Forest的思想，sklearn里的gbm好像也有类似实现。</li>
-</ol>
-<h2 id="Realization-process"><a href="#Realization-process" class="headerlink" title="Realization process"></a>Realization process</h2><h2 id="Relation-know"><a href="#Relation-know" class="headerlink" title="Relation know"></a>Relation know</h2><h4 id="分类树与回归树的区别"><a href="#分类树与回归树的区别" class="headerlink" title="分类树与回归树的区别"></a>分类树与回归树的区别</h4><blockquote>
-<p>分类树 以C4.5分类树为例，C4.5分类树在每次分枝时，是穷举每一个feature的每一个阈值，找到使得按照feature&lt;=阈值，和feature&gt;阈值分成的两个分枝的熵最大的阈值(熵最大的概念可理解成尽可能每个分枝的男女比例都远离1:1)，按照该标准分枝得到两个新节点，用同样方法继续分枝直到所有人都被分入性别唯一的叶子节点，或达到预设的终止条件，若最终叶子节点中的性别不唯一，则以多数人的性别作为该叶子节点的性别。</p>
-</blockquote>
-<p><strong>分类树使用信息增益或增益比率来划分节点；每个节点样本的类别情况投票决定测试样本的类别。</strong></p>
-<blockquote>
-<p>回归树总体流程也是类似，区别在于，回归树的每个节点（不一定是叶子节点）都会得一个预测值，以年龄为例，该预测值等于属于这个节点的所有人年龄的平均值。分枝时穷举每一个feature的每个阈值找最好的分割点，但衡量最好的标准不再是最大熵，而是最小化均方差即(每个人的年龄-预测年龄)^2 的总和 / N。也就是被预测出错的人数越多，错的越离谱，均方差就越大，通过最小化均方差能够找到最可靠的分枝依据。分枝直到每个叶子节点上人的年龄都唯一或者达到预设的终止条件(如叶子个数上限)，若最终叶子节点上人的年龄不唯一，则以该节点上所有人的平均年龄做为该叶子节点的预测年龄。</p>
-</blockquote>
-<p><strong>回归树使用最大均方差划分节点；每个节点样本的均值作为测试样本的回归预测值。</strong></p>
-<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p><a href="https://www.zhihu.com/question/30828247/answer/64816509" target="_blank" rel="noopener">熵</a></p>
-<p><a href="http://blog.csdn.net/zjsghww/article/details/51638126" target="_blank" rel="noopener">C4.5流程</a></p>
-<p><a href="https://www.jianshu.com/p/005a4e6ac775" target="_blank" rel="noopener">GBDT</a></p>
-<p><a href="https://www.cnblogs.com/ModifyRong/p/7744987.html" target="_blank" rel="noopener">GBDT面试</a></p>
-<p><a href="http://wepon.me/files/gbdt.pdf" target="_blank" rel="noopener">GBDT需科学上网</a></p>
-<p><a href="http://blog.csdn.net/u011067360/article/details/24871801" target="_blank" rel="noopener">CART剪枝</a></p>
-<p><a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">CART剪枝1</a></p>
-<p><a href="https://www.zhihu.com/question/41354392" target="_blank" rel="noopener">GBDT和XGBOOST的区别</a></p>
-<p><a href="http://blog.csdn.net/androidlushangderen" target="_blank" rel="noopener">部分算法</a></p>
-<p><a href="https://www.cnblogs.com/Libo-Master/p/7563221.html" target="_blank" rel="noopener">https://www.cnblogs.com/Libo-Master/p/7563221.html</a></p>
-<p><a href="http://blog.csdn.net/google19890102/article/details/51746402" target="_blank" rel="noopener">http://blog.csdn.net/google19890102/article/details/51746402</a> 图多</p>
-<h1 id="EM"><a href="#EM" class="headerlink" title="EM"></a>EM</h1>
+          
       
       
     </div>
@@ -479,6 +281,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/decision-tree-ML/">decision_tree ML</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a  href="/2018/03/05/DT/#more">大航海 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
