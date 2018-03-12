@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>lvs | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。整个服务器集群的结构对客户是透明的，而且无需修改客户端和服务器端的程序。">
+<meta name="keywords" content="lvs 负载均衡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvs">
+<meta property="og:url" content="http://yoursite.com/2018/03/12/lvs/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="介绍LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。整个服务器集群的结构对客户是透明的，而且无需修改客户端和服务器端的程序。">
+<meta property="og:image" content="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image1.png?lastModify=1520855758?lastModify=1520857332">
+<meta property="og:image" content="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image2.png?lastModify=1520855758?lastModify=1520857332">
+<meta property="og:image" content="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image3.png?lastModify=1520855758?lastModify=1520857332">
+<meta property="og:updated_time" content="2018-03-12T12:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lvs">
+<meta name="twitter:description" content="介绍LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。整个服务器集群的结构对客户是透明的，而且无需修改客户端和服务器端的程序。">
+<meta name="twitter:image" content="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image1.png?lastModify=1520855758?lastModify=1520857332">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head1.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">逆拂</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">生命是长期而持续的积累</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Neef6" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/decision-tree-ML/" style="font-size: 10px;">decision_tree ML</a> <a href="/tags/lvs-负载均衡/" style="font-size: 10px;">lvs 负载均衡</a> <a href="/tags/ml/" style="font-size: 10px;">ml</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">逆拂</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head1.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">逆拂</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">生命是长期而持续的积累</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/Neef6" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-lvs" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/12/lvs/" class="article-date">
+      <time datetime="2018-03-12T12:22:50.000Z" itemprop="datePublished">2018-03-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lvs
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lvs-负载均衡/">lvs 负载均衡</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。整个服务器集群的结构对客户是透明的，而且无需修改客户端和服务器端的程序。</p>
+<a id="more"></a>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#lvs的管理工具：ipvsadm</span><br><span class="line">yum install ipvsadm</span><br></pre></td></tr></table></figure>
+<h3 id="LVS集群特性"><a href="#LVS集群特性" class="headerlink" title="LVS集群特性"></a>LVS集群特性</h3><ul>
+<li>可伸缩性（Scalability）</li>
+<li>可靠性（Reliability）<ul>
+<li>抗负载能力很强，自身有完整的双机热备方案</li>
+</ul>
+</li>
+<li>可管理性（Manageability）</li>
+</ul>
+<ol>
+<li><p><strong>功能</strong>有实现三种IP负载均衡技术和八种连接调度算法的IPVS软件。在IPVS内部实现上，采用了高效的Hash函数和垃圾回收机制，能正确处理所调度报文相关的ICMP消息（有些商品化的系统反而不能）。虚拟服务的设置数目没有限制，每个虚拟服务有自己的服务器集。它支持持久的虚拟服务（如HTTP Cookie和HTTPS等需要该功能的支持），并提供详尽的统计数据，如连接的处理速率和报文的流量等。针对大规模拒绝服务（Deny of Service）攻击，实现了三种防卫策略。有基于内容请求分发的应用层交换软件KTCPVS，它也是在Linux内核中实现。有相关的集群管理软件对资源进行监测，能及时将故障屏蔽，实现系统的高可用性。主、从调度器能周期性地进行状态同步，从而实现更高的可用性。</p>
+</li>
+<li><p><strong>适用性</strong>后端服务器可运行任何支持TCP/IP的操作系统，包括Linux，各种Unix（如FreeBSD、Sun Solaris、HP Unix等），Mac/OS和Windows NT/2000等。负载调度器能够支持绝大多数的TCP和UDP协议：</p>
+<p>| 协议 | 内 容                                                        |<br>| —- | ———————————————————— |<br>| TCP  | HTTP，FTP，PROXY，SMTP，POP3，IMAP4，DNS，LDAP，HTTPS，SSMTP等 |<br>| UDP  | DNS，NTP，ICP，视频、音频流播放协议等                        |</p>
+<p>无需对客户机和服务器作任何修改，可适用大多数Internet服务。</p>
+</li>
+<li><p><strong>性能</strong>LVS服务器集群系统具有良好的伸缩性，可支持几百万个并发连接。配置100M网卡，采用VS/TUN或VS/DR调度技术，集群系统的吞吐量可高达1Gbits/s；如配置千兆网卡，则系统的最大吞吐量可接近10Gbits/s。</p>
+</li>
+<li><p><strong>可靠性</strong>LVS服务器集群软件已经在很多大型的、关键性的站点得到很好的应用，所以它的可靠性在真实应用得到很好的证实。有很多调度器运行一年多，未作一次重启动。</p>
+</li>
+<li><p><strong>软件许可证</strong>LVS集群软件是按GPL（GNU Public License）许可证发行的自由软件，这意味着你可以得到软件的源代码，有权对其进行修改，但必须保证你的修改也是以GPL方式发行。</p>
+</li>
+</ol>
+<h3 id="LVS框架"><a href="#LVS框架" class="headerlink" title="LVS框架"></a>LVS框架</h3><p>LVS项目已提供了一个实现可伸缩网络服务的Linux Virtual Server框架，如图。在LVS框架中，提供了含有三种IP负载均衡技术的IP虚拟服务器软件IPVS、基于内容请求分发的内核Layer-7交换机KTCPVS和集群管理软件。可以利用LVS框架实现高可伸缩的、高可用的Web、Cache、Mail和Media等网络服务；在此基础上，可以开发支持庞大用户数的、高可伸缩的、高可用的电子商务应用。</p>
+<p><img src="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image1.png?lastModify=1520855758?lastModify=1520857332" alt="img"></p>
+<h2 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h2><p>三层结构</p>
+<ul>
+<li><strong>负载调度器（load balancer）</strong>，它是整个集群对外面的前端机，负责将客户的请求发送到一组服务器上执行，而客户认为服务是来自一个IP地址（我们可称之为虚拟IP地址）上的。</li>
+<li><strong>服务器池（server pool）</strong>，是一组真正执行客户请求的服务器，执行的服务有WEB、MAIL、FTP和DNS等。</li>
+<li><strong>共享存储（shared storage）</strong>，它为服务器池提供一个共享的存储区，这样很容易使得服务器池拥有相同的内容，提供相同的服务。</li>
+</ul>
+<p>调度器是服务器集群系统的唯一入口点（Single Entry Point），它可以采用IP负载均衡技术、基于内容请求分发技术或者两者相结合。在IP负载均衡技术中，需要服务器池拥有相同的内容提供相同的服务。当客户请求到达时，调度器只根据服务器负载情况和设定的调度算法从服务器池中选出一个服务器，将该请求转发到选出的服务器，并记录这个调度；当这个请求的其他报文到达，也会被转发到前面选出的服务器。在基于内容请求分发技术中，服务器可以提供不同的服务，当客户请求到达时，调度器可根据请求的内容选择服务器执行请求。因为所有的操作都是在Linux操作系统核心空间中将完成的，它的调度开销很小，所以它具有很高的吞吐率。</p>
+<h2 id="高可用性"><a href="#高可用性" class="headerlink" title="高可用性"></a><strong>高可用性</strong></h2><p>调度器上有资源监测进程来时刻监视各个服务器结点的健康状况。当服务器对ICMP ping不可达时或者探测她的网络服务在指定的时间没有响应时，资源监测进程通知操作系统内核将该服务器从调度列表中删除或者失效。一旦监测进程到服务器恢复工作，通知调度器将其加入调度列表进行调度。</p>
+<p><strong>避免前端调取器失效</strong></p>
+<p>为了避免调度器失效而导致整个系统不能工作，我们需要设立一个从调度器作为主调度器的备份。两个心跳（Heartbeat）进程分别在主从调度器上运行，它们通过串口线和UDP等心跳线来相互定时地汇报各自的健康状况。当从调度器不能听得主调度器的心跳时，从调度器通过ARP欺骗 （Gratuitous ARP）来接管集群对外的Virtual IP Address，同时接管主调度器的工作来提供负载调度服务。当主调度器恢复时，这里有两种方法，一是主调度器自动变成从调度器，二是从调度器释放 Virtual IP Address，主调度器收回Virtual IP Address并提供负载调度服务。这里，多条心跳线可以使得因心跳线故障导致误判（即从调度器认为主调度器已经失效，其实主调度器还在正常工作）的概论 降到最低。</p>
+<p><strong>连接会同步给从调度器</strong></p>
+<p>通常，当主调度器失效时，主调度器上所有已建立连接的状态信息将丢失，已有的连接会中断。客户需要向重新连接，从调度器才会将新连接调 度到各个服务器上，这对客户会造成一定的不便。为此，IPVS调度器在Linux 内核中实现一种高效状态同步机制，将主调度器的状态信息及时地同步到从调度器。当从调度器接管时，绝大部分已建立的连接会持续下去。</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><h3 id="三种ip负载均衡的技术"><a href="#三种ip负载均衡的技术" class="headerlink" title="三种ip负载均衡的技术"></a>三种ip负载均衡的技术</h3><ol>
+<li><p><strong>Virtual Server via Network Address Translation（VS/NAT）</strong>:NAT</p>
+<blockquote>
+<p>通过网络地址转换，调度器重写请求报文的目标地址，根据预设的调度算法，将请求分派给后端的真实服务器；真实服务器的响应报文通过调度器时，报文的源地址被重写，再返回给客户，完成整个负载调度过程。</p>
+</blockquote>
+<ul>
+<li>调度器在连接Hash 表中记录这个连接.当这个连接的下一个报文到达时，从连接Hash表中可以得到原选定服务器的地址和端口</li>
+<li>不同的报文会使得连接处于不同的状态，不同的状态有不同的超时值。</li>
+<li>连接上引入一个状态机，不同的报文会使得连接处于不同的状态，不同的状态有不同的超时值<ul>
+<li>在TCP 连接中，根据标准的TCP有限状态机进行状态迁移；在UDP中，我们只设置一个UDP状态。不同状态的超时值是可以设置的，在缺省情况下，SYN状态的超时为1分钟，ESTABLISHED状态的超时为15分钟，FIN状态的超时为1分钟；UDP状态的超时为5分钟。当连接终止或超时，调度器将这个连接从连接Hash表中删除。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><strong>Virtual Server via IP Tunneling（VS/TUN）</strong>:ip隧道采用NAT技术时，由于请求和响应报文都必须经过调度器地址重写，当客户请求越来越多时，调度器的处理能力将成为瓶颈。为了解决这个问题，调度器把请求报 文通过IP隧道转发至真实服务器，而真实服务器将响应直接返回给客户，所以调度器只处理请求报文。由于一般网络服务应答比请求报文大许多，采用 VS/TUN技术后，集群系统的最大吞吐量可以提高10倍。</p>
+<ul>
+<li>请求响应分开处理</li>
+</ul>
+<blockquote>
+<p>IP隧道（IP tunneling）是将一个IP报文封装在另一个IP报文的技术，这可以使得目标为一个IP地址的数据报文能被封装和转发到另一个IP地址。IP隧道技术亦称为IP封装技术（IP encapsulation）。</p>
+<p>在其中隧道都是静态建立的</p>
+<p>我们利用IP隧道技术将请求报文封装转发给后端服务器，响应报文能从后端服务器直接返回给客户。但在这里，后端服务器有一组而非一个，所以我们不可能静态地建立一一对应的隧道，而是动态地选择一台服务器，将请求报文封装和转发给选出的服务器。</p>
+</blockquote>
+<p>调度器根据各个服务器的负载情况，动态地选择一台服务器，将请求报文封装在另一个IP报文中，再将封装后的IP报文转发给选出的服务器；服务器收到报文后，先将报文解封获得原来目标地址为VIP的报文，服务器发现VIP地址被配置在本地的IP隧道设备上，所以就处理这个请求，然后根据路由表将响应报文直接返回给客户。</p>
+</li>
+</ol>
+<ol>
+<li><p><strong>Virtual Server via Direct Routing（VS/DR）</strong>VS/DR通过改写请求报文的MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。同VS/TUN技术一样，VS/DR技术可极大地 提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连 在同一物理网段上。</p>
+<blockquote>
+<p>要求：    调度器和服务器组都必须在物理上有一个网卡通过不分断的局域网相连，如通过高速的交换机或者HUB相连。VIP地址为调度器和服务器组共享，调度器配置的VIP地址是对外可见的，用于接收虚拟服务的请求报文；所有的服务器把VIP地址配置在各自的Non-ARP网络设备上，它对外面是不可见的，只是用于处理目标地址为VIP的网络请求。</p>
+</blockquote>
+<p>工作原理</p>
+<blockquote>
+<p>将报文直接路由给目标服务器。在VS/DR 中，调度器根据各个服务器的负载情况，动态地选择一台服务器，不修改也不封装IP报文，而是将数据帧的MAC地址改为选出服务器的MAC地址，再将修改后的数据帧在与服务器组的局域网上发送。因为数据帧的MAC地址是选出的服务器，所以服务器肯定可以收到这个数据帧，从中可以获得该IP报文。当服务器发现报文的目标地址VIP是在本地的网络设备上，服务器处理这个报文，然后根据路由表将响应报文直接返回给客户。</p>
+</blockquote>
+<p>​</p>
+</li>
+</ol>
+<h2 id="支持的策略"><a href="#支持的策略" class="headerlink" title="支持的策略"></a>支持的策略</h2><h3 id="在内核中调度算法上，IPVS实现如下"><a href="#在内核中调度算法上，IPVS实现如下" class="headerlink" title="在内核中调度算法上，IPVS实现如下"></a>在内核中调度算法上，IPVS实现如下</h3><ol>
+<li><strong>轮叫（Round Robin）</strong>调度器通过”轮叫”调度算法将外部请求按顺序轮流分配到集群中的真实服务器上，它均等地对待每一台服务器，而不管服务器上实际的连接数和系统负载。</li>
+<li><strong>加权轮叫（Weighted Round Robin）</strong>调度器通过”加权轮叫”调度算法根据真实服务器的不同处理能力来调度访问请求。这样可以保证处理能力强的服务器处理更多的访问流量。调度器可以自动问询真实服务器的负载情况，并动态地调整其权值。</li>
+<li><strong>最少链接（Least Connections）</strong>调度器通过”最少连接”调度算法动态地将网络请求调度到已建立的链接数最少的服务器上。如果集群系统的真实服务器具有相近的系统性能，采用”最小连接”调度算法可以较好地均衡负载。</li>
+<li><strong>加权最少链接（Weighted Least Connections）</strong>在集群系统中的服务器性能差异较大的情况下，调度器采用”加权最少链接”调度算法优化负载均衡性能，具有较高权值的服务器将承受较大比例的活动连接负载。调度器可以自动问询真实服务器的负载情况，并动态地调整其权值。</li>
+<li><strong>基于局部性的最少链接（Locality-Based Least Connections）</strong>“基于局部性的最少链接” 调度算法是针对目标IP地址的负载均衡，目前主要用于Cache集群系统。该算法根据请求的目标IP地址找出该目标IP地址最近使用的服务器，若该服务器 是可用的且没有超载，将请求发送到该服务器；若服务器不存在，或者该服务器超载且有服务器处于一半的工作负载，则用”最少链接”的原则选出一个可用的服务 器，将请求发送到该服务器。</li>
+<li><strong>带复制的基于局部性最少链接（Locality-Based Least Connections with Replication）</strong>“带复制的基于局部性最少链接”调度算法也是针对目标IP地址的负载均衡，目前主要用于Cache集群系统。它与LBLC算法的不同之处是它要维护从一个 目标IP地址到一组服务器的映射，而LBLC算法维护从一个目标IP地址到一台服务器的映射。该算法根据请求的目标IP地址找出该目标IP地址对应的服务 器组，按”最小连接”原则从服务器组中选出一台服务器，若服务器没有超载，将请求发送到该服务器，若服务器超载；则按”最小连接”原则从这个集群中选出一 台服务器，将该服务器加入到服务器组中，将请求发送到该服务器。同时，当该服务器组有一段时间没有被修改，将最忙的服务器从服务器组中删除，以降低复制的 程度。</li>
+<li><strong>目标地址散列（Destination Hashing）</strong>“目标地址散列”调度算法根据请求的目标IP地址，作为散列键（Hash Key）从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</li>
+<li><strong>源地址散列（Source Hashing）</strong>“源地址散列”调度算法根据请求的源IP地址，作为散列键（Hash Key）从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</li>
+</ol>
+<h3 id="动态反馈负载"><a href="#动态反馈负载" class="headerlink" title="动态反馈负载"></a>动态反馈负载</h3><p>动态反馈负载均衡算法考虑服务器的实时负载和响应情况，不断调整服务器间处理请求的比例，来避免有些服务器超载时依然收到大量请求，从而提高整个系统的吞吐率。</p>
+<p>Monitor Daemon将该服务器的权值设置到内核中的IPVS调度中（而在内核中连接调度一般采用加权轮叫调度算法或者加权最小连接调度算法）。Monitor Daemon将该服务器的权值设置到内核中的IPVS调度中。过了一定的时间间隔（如2秒钟），Monitor </p>
+<p>Daemon再查询各个服务器的情况，并相应调整服务器的权值；这样周期性地进行。可以说，这是一个负反馈机制，使得服务器保持较好的利用率。</p>
+<p>在加权轮叫调度算法中，当服务器的权值为零，已建立的连接会继续得到该服务器的服务，而新的连接不会分配到该服务器。系统管理员可以将一台服务器的权值设置为零，使得该服务器安静下来，当已有的连接都结束后，他可以将该服务器切出，对其进行维护</p>
+<h3 id="综合负载"><a href="#综合负载" class="headerlink" title="综合负载"></a>综合负载</h3><p>在计算综合负载时，我们主要使用两大类负载信息：输入指标和服务器指标。输入指标是在调度器上收集到的，而服务器指标是在服务器上的各种负载信息。我们用综合负载来反映服务器当前的比较确切负载情况。</p>
+<p>有两种方法可以获得这些信息；一是在所有的服务器上运行着SNMP（Simple Network Management Protocol）服务进程，而在调度器上的Monitor Daemon通过SNMP向各个服务器查询获得这些信息；二是在服务器上实现和运行收集信息的Agent，由Agent定时地向Monitor Daemon报告负载信息。</p>
+<p><img src="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image2.png?lastModify=1520855758?lastModify=1520857332" alt="img"></p>
+<p>一般建议将时间间隔设置在5到20秒之间。</p>
+<p><img src="file:///Users/apple/Library/Containers/com.tencent.xinWeChat/Data/Library/Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/1727f061bbb3bd1b343493589767b8cc/Message/MessageTemp/9e20f478899dc29eb19741386f9343c8/File/liwz/gz/./image3.png?lastModify=1520855758?lastModify=1520857332" alt="img"></p>
+<blockquote>
+<p>在公式中，0.95是我们想要达到的系统利用率，A是一个可调整的系数（缺省值为5）。当综合负载值为0.95时，服务器权值不变；当综合负载值大于0.95时，权值变小；当综合负载值小于0.95时，权值变大。若新权值大于SCALE<em>DEFAULT_WEIGHTi，我们将新权值设为 SCALE</em>DEFAULT_WEIGHTi。若新权值与当前权值的差异超过设定的阀值，则将新权值设置到内核中的IPVS调度参数中，否则避免打断 IPVS调度的开销。我们可以看出这是一个负反馈公式，会使得权值调整到一个稳定点，如系统达到理想利用率时，权值是不变的。</p>
+<p>在实际使用中，若发现所有服务器的权值都小于他们的DEFAULT_WEIGHT，则说明整个服务器集群处于超载状态，这时需要加入新的服务器结点到集群中来处理部分负载；反之，若所有服务器的权值都接近于SCALE*DEFAULT_WEIGHT，则说明当前系统的负载都比较轻。</p>
+</blockquote>
+<h2 id="noun"><a href="#noun" class="headerlink" title="noun"></a>noun</h2><h3 id="icmp"><a href="#icmp" class="headerlink" title="icmp"></a>icmp</h3><p>Internet Control Message Protocol（网际控制信息协议）</p>
+<p>网关层面</p>
+<p>当某个网关发现传输错误时，立即向信源主机发送ICMP报文，报告出错信息，让信源主机采取相应处理措施，它是一种差错和控制报文协议，不仅用于传输差错报文，还传输控制报文。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/03/12/lvs/">lvs</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 逆拂 的个人博客">逆拂</a></p>
+        <p><span>发布时间:</span>2018年03月12日 - 20时22分</p>
+        <p><span>最后更新:</span>2018年03月12日 - 20时23分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/12/lvs/" title="lvs">http://yoursite.com/2018/03/12/lvs/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/03/12/lvs/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/05/DT/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DT</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">1.1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LVS集群特性"><span class="toc-number">1.2.</span> <span class="toc-text">LVS集群特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LVS框架"><span class="toc-number">1.3.</span> <span class="toc-text">LVS框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#体系结构"><span class="toc-number">2.</span> <span class="toc-text">体系结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高可用性"><span class="toc-number">3.</span> <span class="toc-text">高可用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡"><span class="toc-number">4.</span> <span class="toc-text">负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三种ip负载均衡的技术"><span class="toc-number">4.1.</span> <span class="toc-text">三种ip负载均衡的技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持的策略"><span class="toc-number">5.</span> <span class="toc-text">支持的策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在内核中调度算法上，IPVS实现如下"><span class="toc-number">5.1.</span> <span class="toc-text">在内核中调度算法上，IPVS实现如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态反馈负载"><span class="toc-number">5.2.</span> <span class="toc-text">动态反馈负载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#综合负载"><span class="toc-number">5.3.</span> <span class="toc-text">综合负载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#noun"><span class="toc-number">6.</span> <span class="toc-text">noun</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#icmp"><span class="toc-number">6.1.</span> <span class="toc-text">icmp</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <div id="gitments"></div>
+<script src="/js/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: window.location.pathname,
+      owner: 'luuman',
+      repo: 'luuman.github.io',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitments')
+</script>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/03/05/DT/" title="下一篇: DT">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/03/12/lvs/">lvs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/05/DT/">DT</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/13/machine-learning/">machine learning</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 逆拂
+            </div>
+            <div class="footer-right">
+            other blog:lolvs.cn
+	    </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本页访问数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
