@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DT | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="决策树algorithmID3基于熵做分类  熵 熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)  公式：是每一类的出现概率p的logP倍和">
+<meta name="keywords" content="&#x2F;decision_tree&#x2F; &#x2F;ML&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DT">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/DT/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="决策树algorithmID3基于熵做分类  熵 熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)  公式：是每一类的出现概率p的logP倍和">
+<meta property="og:updated_time" content="2018-05-18T05:43:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DT">
+<meta name="twitter:description" content="决策树algorithmID3基于熵做分类  熵 熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)  公式：是每一类的出现概率p的logP倍和">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head1.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">逆拂</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">生命是长期而持续的积累</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/Neef6" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/decision-tree-ML/" style="font-size: 10px;">/decision_tree/ /ML/</a> <a href="/tags/big-data-hdfs/" style="font-size: 10px;">big_data hdfs</a> <a href="/tags/lvs-负载均衡/" style="font-size: 10px;">lvs 负载均衡</a> <a href="/tags/ml/" style="font-size: 10px;">ml</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">逆拂</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head1.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">逆拂</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">生命是长期而持续的积累</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/Neef6" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-DT" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/05/DT/" class="article-date">
+      <time datetime="2018-03-05T14:57:14.000Z" itemprop="datePublished">2018-03-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DT
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/decision-tree-ML/">/decision_tree/ /ML/</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h2 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h2><h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>基于熵做分类</p>
+<ol>
+<li><h6 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h6><blockquote>
+<p>熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)</p>
+</blockquote>
+<p>公式：是每一类的出现概率p的logP倍和</p>
+<a id="more"></a> 
+<blockquote>
+<p>取log是因为从观测角度。两个变量的信息量单独观察和一起观察应该是一样的是+，而从概率角度，两个独立的随机变量P（X,Y）=P（X）*P(y)。所以选择log函数</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>信息增益</p>
+<blockquote>
+<p>表示得知属性 a 的信息而使得样本集合不确定度减少的程度</p>
+</blockquote>
+<p>信息增益 = 熵 - 条件熵</p>
+</li>
+<li><p>缺点</p>
+<blockquote>
+<p>ID3算法存在一个问题，就是偏向于多值属性，例如，如果存在唯一标识属性ID，则ID3会选择它作为分裂属性，这样虽然使得划分充分纯净，但这种划分对分类几乎毫无用处。ID3的后继算法C4.5使用增益率（gain ratio）的信息增益扩充，试图克服这个偏倚。</p>
+</blockquote>
+<p>意思就是，集合中拥有这个属性的样本有很多</p>
+</li>
+</ol>
+<h3 id="C4-5"><a href="#C4-5" class="headerlink" title="C4.5"></a>C4.5</h3><p>基于信息增益率做切分</p>
+<ol>
+<li><p>公式</p>
+<blockquote>
+<p>信息增益/属性a的固有值-IV（a）</p>
+<p>IV（a）,选取该属性，分成的V类别数越大，IV(a)就越大，如果仅仅只用信息增益来选择属性的话，那么我们偏向于选择分成子节点类别大的那个特征。</p>
+</blockquote>
+</li>
+<li><p>比ID3好的原因</p>
+<ol>
+<li><p>3可取值数目较多的属性有所偏好。</p>
+</li>
+<li><p>看到增益率准则其实对可取类别数目较少的特征有所偏好！毕竟分母越小，整体越大。</p>
+</li>
+<li><p>仅仅只用信息增益来选择属性的话，那么我们偏向于选择分成子节点类别大的那个特征。</p>
+<blockquote>
+<p>按照增益率来划分节点，分成的类别数目越多，增益率的值越大</p>
+</blockquote>
+</li>
+<li><p>C4.5还弥补了ID3中不能处理特征属性值<em>连续</em>的问题。但是，对连续属性值需要扫描排序，会使C4.5性能下降</p>
+<blockquote>
+<p>c4.5可以多分叉</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>信息增益率指的是信息增大的比率，而不再是取决于数量</p>
+</li>
+</ol>
+<h3 id="Gini"><a href="#Gini" class="headerlink" title="Gini"></a>Gini</h3><ol>
+<li><p>公式</p>
+<blockquote>
+<p>这个样本被选中的概率乘以它被分错的概率</p>
+</blockquote>
+<p>对不同分类属性，比如男 女，去算gini?</p>
+</li>
+<li><p>表示的意义</p>
+<blockquote>
+<p>表示一个随机选中的样本在子集中被分错的可能性</p>
+</blockquote>
+</li>
+<li><p>终止条件</p>
+</li>
+<li><p>分析步骤</p>
+<ol>
+<li>多路分叉</li>
+</ol>
+</li>
+</ol>
+<h2 id="distinction"><a href="#distinction" class="headerlink" title="distinction"></a>distinction</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>ID3</th>
+<th>C4.5</th>
+<th>CART</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分类结果</td>
+<td></td>
+<td>分类</td>
+<td>分类，回归</td>
+</tr>
+<tr>
+<td>子节点</td>
+<td></td>
+<td>多分</td>
+<td>二叉子节点</td>
+</tr>
+<tr>
+<td>数据类型？</td>
+<td>离散</td>
+<td>离散，连续</td>
+<td>连续</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h2><h3 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h3><h3 id="CART"><a href="#CART" class="headerlink" title="CART"></a>CART</h3><p>classification and regression tree</p>
+<ul>
+<li><p>特点</p>
+<ul>
+<li>分类回归树是一棵二叉树，且每个非叶子节点都有两个孩子，所以对于第一棵子树其叶子节点数比非叶子节点数多1。</li>
+</ul>
+</li>
+<li><p>CART与ID3的区别</p>
+<ul>
+<li><p>CART中用于选择变量的不纯性度量是Gini指数</p>
+<p>​</p>
+</li>
+<li><p>如果目标变量是标称的，并且是具有两个以上的类别，则CART可能考虑将目标类别合并成两个超类别（双化）；</p>
+<blockquote>
+<p>标量：定类变量，比如男女</p>
+<p>超类别？</p>
+</blockquote>
+</li>
+<li><p>如果目标变量是连续的，则CART算法找出一组基于树的回归方程来预测目标变量。</p>
+</li>
+<li><p>模型如此设计的原因</p>
+<blockquote>
+<p>选择gini的原因</p>
+<p>ID3，C4.5 大量的log计算。gini</p>
+<p>cart，只对某个特征进行二分原因</p>
+<p><a href="https://www.zhihu.com/question/36659925" target="_blank" rel="noopener">简化gini计算，模型是二叉树也更优雅</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Regression-DT"><a href="#Regression-DT" class="headerlink" title="Regression DT"></a>Regression DT</h3><ol>
+<li>衡量标准：最小化平方差<ol>
+<li>每一个节点都有预测值</li>
+<li>被预测出错的人数越多，错的越离谱，平方误差就越大</li>
+</ol>
+</li>
+</ol>
+<h3 id="Boosting-DT"><a href="#Boosting-DT" class="headerlink" title="Boosting DT"></a>Boosting DT</h3><ol>
+<li><p>是迭代多棵回归树，多棵。是指迭代中的多棵还是多个，多个怎么计算。<strong>提升树即是整个迭代过程生成的回归树的累加</strong></p>
+<blockquote>
+<p>一个数拟合好后，以残差再拟合一棵树，通过另一个属性再迭代</p>
+</blockquote>
+</li>
+<li><p>以残差拟合一个分类器</p>
+<ol>
+<li>有同质，异质</li>
+</ol>
+</li>
+<li><p>作用：提升树利用加法模型和前向分步算法实现学习的优化过程。当损失函数时平方损失和指数损失函数时，每一步的优化很简单。</p>
+</li>
+<li><p>过程。提升树是迭代多棵回归树来共同决策。当采用平方误差损失函数时，每一棵回归树学习的是之前所有树的结论和残差，拟合得到一个当前的残差回归树</p>
+</li>
+<li><p>主要是优化学习过程</p>
+</li>
+<li><p>优化的方法。加快优化过程</p>
+</li>
+</ol>
+<h3 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h3><p>梯度提升决策树</p>
+<ol>
+<li>GBDT是回归树，做处理也可用于分类</li>
+<li>区别于分类树，树的每一个节点都有一个预测值。等于所有值的平均</li>
+<li>衡量最好的标准是最小化平方差-分支依据</li>
+<li>预测出错的人数越多，错的越离谱，平方误差就越大</li>
+<li>分支终止条件是：唯一或者达到设定的终止条件</li>
+</ol>
+<hr>
+<ol>
+<li><p>采用的是加法模型</p>
+</li>
+<li><p>每轮迭代产生一个弱分类器，通过不断降低偏差来提高最终分类器的精度。（弱分类器前提是低方差和高偏差）</p>
+</li>
+<li><p>弱分类器一般选择CART</p>
+</li>
+<li><p>总分类器是每轮训练得到的弱分类器加权求和得到的</p>
+</li>
+<li><p>与bdt的区别。bdt使用平方差比较好计算方差</p>
+<p>但是一般的损失函数不容易计算，使用负梯度得到残差的近似值。计算简单</p>
+</li>
+</ol>
+<hr>
+<p>GBDT和随机森林的相同点：</p>
+<p>1、都是由多棵树组成</p>
+<p>2、最终的结果都是由多棵树一起决定</p>
+<p>GBDT和随机森林的不同点：</p>
+<p>1、组成随机森林的树可以是分类树，也可以是回归树；而GBDT只由回归树组成</p>
+<p>2、组成随机森林的树可以并行生成；而GBDT只能是串行生成</p>
+<p>3、对于最终的输出结果而言，随机森林采用多数投票等；而GBDT则是将所有结果累加起来，或者加权累加起来</p>
+<p>4、随机森林对异常值不敏感，GBDT对异常值非常敏感</p>
+<blockquote>
+<p>随机是对数据一视同仁，gbdt是弱分类器的权值集成</p>
+</blockquote>
+<p>5、随机森林对训练集一视同仁，GBDT是基于权值的弱分类器的集成</p>
+<p>6、随机森林是通过减少模型方差提高性能，GBDT是通过减少模型偏差提高性能</p>
+<blockquote>
+<p>？</p>
+</blockquote>
+<h3 id="Random-Tree"><a href="#Random-Tree" class="headerlink" title="Random Tree"></a>Random Tree</h3><h4 id="生成方法"><a href="#生成方法" class="headerlink" title="生成方法"></a>生成方法</h4><p>1.从样本集中通过重采样的方式产生n个样本</p>
+<p>2.假设样本特征数目为a，对n个样本选择a中的k个特征，用建立决策树的方式获得最佳分割点</p>
+<p>3.重复m次，产生m棵决策树</p>
+<p>4.多数投票机制来进行预测</p>
+<p>（需要注意的一点是，这里m是指循环的次数，n是指样本的数目，n个样本构成训练的样本集，而m次循环中又会产生m个这样的样本集）</p>
+<h3 id="AdaBoost"><a href="#AdaBoost" class="headerlink" title="AdaBoost"></a>AdaBoost</h3><ol>
+<li>AdaBoost的实现是一个渐进的过程，从一个最基础的分类器开始，每次寻找一个最能解决当前错误样本的分类器。用加权取和(weighted sum)的方式把这个新分类器结合进已有的分类器中。</li>
+<li>它的好处是自带了特征选择（feature selection），只使用在训练集中发现有效的特征(feature)。这样就降低了分类时需要计算的特征数量，也在一定程度上解决了高维数据难以理解的问题</li>
+<li><a href="https://www.jianshu.com/p/a6426f4c4e64" target="_blank" rel="noopener">Adaboost</a></li>
+</ol>
+<p>过程</p>
+<blockquote>
+<p>1）给数据中的每一个样本一个权重</p>
+<p>2）训练数据中的每一个样本，得到第一个分类器</p>
+<p>3）计算该分类器的错误率，根据错误率计算要给分类器分配的权重（注意这里是分类器的权重）</p>
+<p>4）将第一个分类器分错误的样本权重增加，分对的样本权重减小（注意这里是样本的权重）</p>
+<p>5）然后再用新的样本权重训练数据，得到新的分类器，到步骤3</p>
+<p>6）直到步骤3中分类器错误率为0，或者到达迭代次数</p>
+<p>7）将所有弱分类器加权求和，得到分类结果（注意是分类器权重）作者：刘开心_8a6c链接：<a href="https://www.jianshu.com/p/a6426f4c4e64來源：简书著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。" target="_blank" rel="noopener">https://www.jianshu.com/p/a6426f4c4e64來源：简书著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</a></p>
+</blockquote>
+<h3 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h3><p><strong>xgboost</strong>是Gradient Boosting的一种高效系统实现，并不是一种单一算法。xgboost里面的基学习器除了用tree(gbtree)，也可用线性分类器(gblinear)。而GBDT则特指梯度提升决策树算法。</p>
+<p>xgboost</p>
+<ol>
+<li>显式地将树模型的复杂度作为正则项加在优化目标</li>
+<li>公式推导里用到了二阶导数信息，而普通的GBDT只用到一阶</li>
+<li>允许使用column(feature) sampling来防止过拟合，借鉴了Random Forest的思想，sklearn里的gbm好像也有类似实现。</li>
+</ol>
+<h2 id="Realization-process"><a href="#Realization-process" class="headerlink" title="Realization process"></a>Realization process</h2><h2 id="Relation-know"><a href="#Relation-know" class="headerlink" title="Relation know"></a>Relation know</h2><h4 id="分类树与回归树的区别"><a href="#分类树与回归树的区别" class="headerlink" title="分类树与回归树的区别"></a>分类树与回归树的区别</h4><blockquote>
+<p>分类树 以C4.5分类树为例，C4.5分类树在每次分枝时，是穷举每一个feature的每一个阈值，找到使得按照feature&lt;=阈值，和feature&gt;阈值分成的两个分枝的熵最大的阈值(熵最大的概念可理解成尽可能每个分枝的男女比例都远离1:1)，按照该标准分枝得到两个新节点，用同样方法继续分枝直到所有人都被分入性别唯一的叶子节点，或达到预设的终止条件，若最终叶子节点中的性别不唯一，则以多数人的性别作为该叶子节点的性别。</p>
+</blockquote>
+<p><strong>分类树使用信息增益或增益比率来划分节点；每个节点样本的类别情况投票决定测试样本的类别。</strong></p>
+<blockquote>
+<p>回归树总体流程也是类似，区别在于，回归树的每个节点（不一定是叶子节点）都会得一个预测值，以年龄为例，该预测值等于属于这个节点的所有人年龄的平均值。分枝时穷举每一个feature的每个阈值找最好的分割点，但衡量最好的标准不再是最大熵，而是最小化均方差即(每个人的年龄-预测年龄)^2 的总和 / N。也就是被预测出错的人数越多，错的越离谱，均方差就越大，通过最小化均方差能够找到最可靠的分枝依据。分枝直到每个叶子节点上人的年龄都唯一或者达到预设的终止条件(如叶子个数上限)，若最终叶子节点上人的年龄不唯一，则以该节点上所有人的平均年龄做为该叶子节点的预测年龄。</p>
+</blockquote>
+<p><strong>回归树使用最大均方差划分节点；每个节点样本的均值作为测试样本的回归预测值。</strong></p>
+<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p><a href="https://www.zhihu.com/question/30828247/answer/64816509" target="_blank" rel="noopener">熵</a></p>
+<p><a href="http://blog.csdn.net/zjsghww/article/details/51638126" target="_blank" rel="noopener">C4.5流程</a></p>
+<p><a href="https://www.jianshu.com/p/005a4e6ac775" target="_blank" rel="noopener">GBDT</a></p>
+<p><a href="https://www.cnblogs.com/ModifyRong/p/7744987.html" target="_blank" rel="noopener">GBDT面试</a></p>
+<p><a href="http://wepon.me/files/gbdt.pdf" target="_blank" rel="noopener">GBDT需科学上网</a></p>
+<p><a href="http://blog.csdn.net/u011067360/article/details/24871801" target="_blank" rel="noopener">CART剪枝</a></p>
+<p><a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">CART剪枝1</a></p>
+<p><a href="https://www.zhihu.com/question/41354392" target="_blank" rel="noopener">GBDT和XGBOOST的区别</a></p>
+<p><a href="http://blog.csdn.net/androidlushangderen" target="_blank" rel="noopener">部分算法</a></p>
+<p><a href="https://www.cnblogs.com/Libo-Master/p/7563221.html" target="_blank" rel="noopener">https://www.cnblogs.com/Libo-Master/p/7563221.html</a></p>
+<p><a href="http://blog.csdn.net/google19890102/article/details/51746402" target="_blank" rel="noopener">http://blog.csdn.net/google19890102/article/details/51746402</a> 图多</p>
+<h1 id="EM"><a href="#EM" class="headerlink" title="EM"></a>EM</h1>
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/03/05/DT/">DT</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 逆拂 的个人博客">逆拂</a></p>
+        <p><span>发布时间:</span>2018年03月05日 - 22时57分</p>
+        <p><span>最后更新:</span>2018年05月18日 - 13时43分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/05/DT/" title="DT">http://yoursite.com/2018/03/05/DT/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/03/05/DT/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2018/03/12/lvs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          lvs
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/02/13/machine-learning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">machine learning</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#决策树"><span class="toc-number">1.</span> <span class="toc-text">决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3"><span class="toc-number">1.1.1.</span> <span class="toc-text">ID3</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#熵"><span class="toc-number">1.1.1.0.0.1.</span> <span class="toc-text">熵</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5"><span class="toc-number">1.1.2.</span> <span class="toc-text">C4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gini"><span class="toc-number">1.1.3.</span> <span class="toc-text">Gini</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#distinction"><span class="toc-number">1.2.</span> <span class="toc-text">distinction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Category"><span class="toc-number">1.3.</span> <span class="toc-text">Category</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DT"><span class="toc-number">1.3.1.</span> <span class="toc-text">DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CART"><span class="toc-number">1.3.2.</span> <span class="toc-text">CART</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-DT"><span class="toc-number">1.3.3.</span> <span class="toc-text">Regression DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting-DT"><span class="toc-number">1.3.4.</span> <span class="toc-text">Boosting DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.3.5.</span> <span class="toc-text">GBDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Tree"><span class="toc-number">1.3.6.</span> <span class="toc-text">Random Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成方法"><span class="toc-number">1.3.6.1.</span> <span class="toc-text">生成方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost"><span class="toc-number">1.3.7.</span> <span class="toc-text">AdaBoost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xgboost"><span class="toc-number">1.3.8.</span> <span class="toc-text">xgboost</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Realization-process"><span class="toc-number">1.4.</span> <span class="toc-text">Realization process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relation-know"><span class="toc-number">1.5.</span> <span class="toc-text">Relation know</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分类树与回归树的区别"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">分类树与回归树的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-number">1.6.</span> <span class="toc-text">Link</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EM"><span class="toc-number">2.</span> <span class="toc-text">EM</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <div id="gitments"></div>
+<script src="/js/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: window.location.pathname,
+      owner: 'luuman',
+      repo: 'luuman.github.io',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitments')
+</script>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/03/12/lvs/" title="上一篇: lvs">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/02/13/machine-learning/" title="下一篇: machine learning">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/HA/">HA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/12/lvs/">lvs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/05/DT/">DT</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/13/machine-learning/">machine learning</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 逆拂
+            </div>
+            <div class="footer-right">
+            other blog:lolvs.cn
+	    </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本页访问数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
