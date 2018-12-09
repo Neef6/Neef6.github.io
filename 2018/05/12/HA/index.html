@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/05/12/HA/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="HA解决的问题：hdfs nn单点故障 主备切换过程AutomaticFailoverAutomated Failover   当active namenode崩溃的时候，自动将standby namenode切换成active namenode。">
-<meta property="og:updated_time" content="2018-09-11T15:55:51.000Z">
+<meta property="og:updated_time" content="2018-12-09T18:24:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HA">
 <meta name="twitter:description" content="HA解决的问题：hdfs nn单点故障 主备切换过程AutomaticFailoverAutomated Failover   当active namenode崩溃的时候，自动将standby namenode切换成active namenode。">
@@ -469,7 +469,7 @@
 </ol>
 </blockquote>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Thread which runs inside the NN when it's in Standby state,</span></span><br><span class="line"><span class="comment"> * periodically waking up to take a checkpoint of the namespace.</span></span><br><span class="line"><span class="comment"> * When it takes a checkpoint, it saves it to its local</span></span><br><span class="line"><span class="comment"> * storage and then uploads it to the remote NameNode.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StandbyCheckpointer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//checkpointThread</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当检测到更新的时候，会将EditLog更新下载到本地同时进行合并成FSImage，并将最新的FSImage增量更新到Active NN上。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Thread which runs inside the NN when it's in Standby state,</span></span><br><span class="line"><span class="comment"> * periodically waking up to take a checkpoint of the namespace.</span></span><br><span class="line"><span class="comment"> * When it takes a checkpoint, it saves it to its local</span></span><br><span class="line"><span class="comment"> * storage and then uploads it to the remote NameNode.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StandbyCheckpointer</span> </span>&#123;</span><br><span class="line"><span class="comment">//checkpointThread</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当检测到更新的时候，会将EditLog更新下载到本地同时进行合并成FSImage，并将最新的FSImage增量更新到Active NN上。</span></span><br></pre></td></tr></table></figure>
 
       
       
@@ -528,7 +528,7 @@
         <p><span>本文标题:</span><a href="/2018/05/12/HA/">HA</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 逆拂 的个人博客">逆拂</a></p>
         <p><span>发布时间:</span>2018年05月12日 - 13时59分</p>
-        <p><span>最后更新:</span>2018年09月11日 - 23时55分</p>
+        <p><span>最后更新:</span>2018年12月10日 - 02时24分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/05/12/HA/" title="HA">http://yoursite.com/2018/05/12/HA/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/05/12/HA/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
