@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>FM衍生的各类算法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="q">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="FM FM通过向量交叉学习的方式来挖掘特征之间的相关性,实现组合特征，能够很好的挖掘数据特征间的相关性，可以做分类，排序，回归。 适应于高度稀疏的特征矩阵，目标函数及优化学习时候都可以在线性时间完成从而也适合在线学习。适用于ctr点击预估，推荐。 参数  w0，w1，v，k   n(way) 参数个数  n(k+1)+1 公式推导 优化算法 随机梯度下降，这种方案收敛慢而且非常敏感 交替方向乘子(">
+<meta name="keywords" content="fm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FM衍生的各类算法">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/fm/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="q">
+<meta property="og:description" content="FM FM通过向量交叉学习的方式来挖掘特征之间的相关性,实现组合特征，能够很好的挖掘数据特征间的相关性，可以做分类，排序，回归。 适应于高度稀疏的特征矩阵，目标函数及优化学习时候都可以在线性时间完成从而也适合在线学习。适用于ctr点击预估，推荐。 参数  w0，w1，v，k   n(way) 参数个数  n(k+1)+1 公式推导 优化算法 随机梯度下降，这种方案收敛慢而且非常敏感 交替方向乘子(">
+<meta property="og:updated_time" content="2018-12-17T16:56:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="q">
+<meta name="twitter:title" content="FM衍生的各类算法">
+<meta name="twitter:description" content="FM FM通过向量交叉学习的方式来挖掘特征之间的相关性,实现组合特征，能够很好的挖掘数据特征间的相关性，可以做分类，排序，回归。 适应于高度稀疏的特征矩阵，目标函数及优化学习时候都可以在线性时间完成从而也适合在线学习。适用于ctr点击预估，推荐。 参数  w0，w1，v，k   n(way) 参数个数  n(k+1)+1 公式推导 优化算法 随机梯度下降，这种方案收敛慢而且非常敏感 交替方向乘子(">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -27,9 +29,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -41,8 +40,8 @@
           rootUrl: '/',
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -202,9 +201,7 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-fm" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-fm" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2018/12/18/fm/" class="article-date">
@@ -220,12 +217,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/18/fm/">FM衍生的各类算法</a>
+    <h1 class="article-title" itemprop="name">
+      FM衍生的各类算法
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fm/">fm</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -266,230 +274,190 @@
 <h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><h3 id="FPMC"><a href="#FPMC" class="headerlink" title="FPMC"></a>FPMC</h3><h3 id="DNN-1"><a href="#DNN-1" class="headerlink" title="DNN"></a>DNN</h3><h3 id="DSMM-深度语义模型"><a href="#DSMM-深度语义模型" class="headerlink" title="DSMM 深度语义模型"></a>DSMM 深度语义模型</h3>
       
       
-    </div>
-    
-    <div class="article-info article-info-index">
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
       
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fm/">fm</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-HA" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/05/12/HA/" class="article-date">
-      <time datetime="2018-05-12T05:59:35.000Z" itemprop="datePublished">2018-05-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/12/HA/">HA</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h1><p>解决的问题：hdfs nn单点故障</p>
-<h2 id="主备切换过程"><a href="#主备切换过程" class="headerlink" title="主备切换过程"></a>主备切换过程</h2><h3 id="AutomaticFailover"><a href="#AutomaticFailover" class="headerlink" title="AutomaticFailover"></a>AutomaticFailover</h3><p>Automated Failover   当active namenode崩溃的时候，自动将standby namenode切换成active namenode。</p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/big-data-hdfs/">big_data hdfs</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/05/12/HA/#more">大航海 >></a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/12/18/fm/">FM衍生的各类算法</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 逆拂 的个人博客">逆拂</a></p>
+        <p><span>发布时间:</span>2018年12月18日 - 00时55分</p>
+        <p><span>最后更新:</span>2018年12月18日 - 00时56分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/18/fm/" title="FM衍生的各类算法">http://yoursite.com/2018/12/18/fm/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/12/18/fm/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-lvs" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/12/lvs/" class="article-date">
-      <time datetime="2018-03-12T12:22:50.000Z" itemprop="datePublished">2018-03-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/12/lvs/">lvs</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>LVS集群采用IP负载均衡技术和基于内容请求分发技术。调度器具有很好的吞吐率，将请求均衡地转移到不同的服务器上执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能的、高可用的虚拟服务器。整个服务器集群的结构对客户是透明的，而且无需修改客户端和服务器端的程序。</p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lvs-负载均衡/">lvs 负载均衡</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/12/lvs/#more">大航海 >></a>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
         </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/12/HA/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HA</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#FM"><span class="toc-number">1.</span> <span class="toc-text">FM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFM"><span class="toc-number">2.</span> <span class="toc-text">FFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL"><span class="toc-number">3.</span> <span class="toc-text">FTRL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNN"><span class="toc-number">4.</span> <span class="toc-text">DNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FNN"><span class="toc-number">5.</span> <span class="toc-text">FNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DeepFM"><span class="toc-number">6.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FPMC"><span class="toc-number">7.</span> <span class="toc-text">FPMC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNN-1"><span class="toc-number">8.</span> <span class="toc-text">DNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DSMM-深度语义模型"><span class="toc-number">9.</span> <span class="toc-text">DSMM 深度语义模型</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
 
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
-  
-    <article id="post-DT" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/05/DT/" class="article-date">
-      <time datetime="2018-03-05T14:57:14.000Z" itemprop="datePublished">2018-03-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
+
     
-      <input type="hidden" class="isFancy" />
+        <div id="gitments"></div>
+<script src="/js/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: window.location.pathname,
+      owner: 'luuman',
+      repo: 'luuman.github.io',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitments')
+</script>
     
-    
-      <header class="article-header">
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/05/DT/">DT</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h2 id="algorithm"><a href="#algorithm" class="headerlink" title="algorithm"></a>algorithm</h2><h3 id="ID3"><a href="#ID3" class="headerlink" title="ID3"></a>ID3</h3><p>基于熵做分类</p>
-<ol>
-<li><h6 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h6><blockquote>
-<p>熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)</p>
-</blockquote>
-<p>公式：是每一类的出现概率p的logP倍和</p>
-          
-      
-      
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/05/12/HA/" title="下一篇: HA">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2018/03/05/DT/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/18/fm/">FM衍生的各类算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/HA/">HA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/12/lvs/">lvs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/05/DT/">DT</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
 
 
 
-
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
