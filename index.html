@@ -231,7 +231,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h3><ol>
+              <h3 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h3><ol>
 <li>FM通过向量交叉学习的方式来挖掘特征之间的相关性,实现组合特征，能够很好的挖掘数据特征间的相关性，可以做分类，排序，回归。</li>
 <li>适应于高度稀疏的特征矩阵，目标函数及优化学习时候都可以在线性时间完成从而也适合在线学习。适用于ctr点击预估，推荐。</li>
 <li>参数  w0，w1，v，k   n(way)</li>
@@ -244,26 +244,7 @@
 </ol>
 </li>
 </ol>
-<h3 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h3><ol>
-<li>将一个特征映射为多个向量，每个向量对应一个场。两个特征交叉时取对应场的向量做内积</li>
-<li>场的意义是特征归类，不同类的交叉用的向量不同</li>
-</ol>
-<h3 id="FTRL"><a href="#FTRL" class="headerlink" title="FTRL"></a>FTRL</h3><ol>
-<li>每次找到让之前所有目标函数（损失函数加正则项）之和最小的参数</li>
-<li>算法在提高模型解的稀疏性方面比其他(gd,sgd,momentum)等，效果显著</li>
-<li>对每一维分开训练更新，每一维度使用的是不同的学习率。优点是考虑了样本本身在不同特征分布上的不均衡性。</li>
-<li>公式推导</li>
-</ol>
-<h3 id="DNN"><a href="#DNN" class="headerlink" title="DNN"></a>DNN</h3><ol>
-<li>深度神经网络</li>
-<li>参数个数n*hidden_num+。。。</li>
-<li>不是end-to-end，fm参数需要预先训练。无法拟合低阶特征</li>
-</ol>
-<h3 id="FNN"><a href="#FNN" class="headerlink" title="FNN"></a>FNN</h3><ol>
-<li>将每个特征用其所属的field表示，原始输入将大大减小</li>
-<li>基于假设，每一个field有且只有一个值</li>
-</ol>
-<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><h3 id="FPMC"><a href="#FPMC" class="headerlink" title="FPMC"></a>FPMC</h3><h3 id="DNN-1"><a href="#DNN-1" class="headerlink" title="DNN"></a>DNN</h3><h3 id="DSMM-深度语义模型"><a href="#DSMM-深度语义模型" class="headerlink" title="DSMM 深度语义模型"></a>DSMM 深度语义模型</h3>
+          
       
       
     </div>
@@ -277,6 +258,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fm/">fm</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a  href="/2018/12/18/fm/#more">大航海 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -495,7 +480,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                &copy; 2018 逆拂
+                &copy; 2019 逆拂
             </div>
             <div class="footer-right">
             other blog:lolvs.cn
