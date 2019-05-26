@@ -9,10 +9,10 @@
 <meta name="keywords" content="ML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DT">
-<meta property="og:url" content="http://yoursite.com/2018/03/05/DT/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/决策树/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="决策树algorithmID3基于熵做分类  熵 熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)  公式：是每一类的出现概率p的logP倍和">
-<meta property="og:updated_time" content="2018-11-27T12:59:09.000Z">
+<meta property="og:updated_time" content="2019-05-26T23:06:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DT">
 <meta name="twitter:description" content="决策树algorithmID3基于熵做分类  熵 熵：度量样本集合不确定度的指标。代表随机变量的复杂度。用来评价整个随机变量x的平均信息量。(反比例)  公式：是每一类的出现概率p的logP倍和">
@@ -201,10 +201,10 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-DT" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-决策树" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/05/DT/" class="article-date">
+      <a href="/2018/03/05/决策树/" class="article-date">
       <time datetime="2018-03-05T14:57:14.000Z" itemprop="datePublished">2018-03-05</time>
 </a>
     </div>
@@ -492,6 +492,11 @@
 </li>
 </ul>
 </blockquote>
+<h2 id="Lgbm和Xgboost的区别"><a href="#Lgbm和Xgboost的区别" class="headerlink" title="Lgbm和Xgboost的区别"></a>Lgbm和Xgboost的区别</h2><ol>
+<li>lgbm leaf-wise   ,xg  level-wise</li>
+<li>互斥捆绑，goss采样</li>
+<li>类别特征的处理</li>
+</ol>
 <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p><a href="https://www.zhihu.com/question/30828247/answer/64816509" target="_blank" rel="noopener">熵</a></p>
 <p><a href="http://blog.csdn.net/zjsghww/article/details/51638126" target="_blank" rel="noopener">C4.5流程</a></p>
 <p><a href="https://www.jianshu.com/p/005a4e6ac775" target="_blank" rel="noopener">GBDT</a></p>
@@ -559,13 +564,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/05/DT/">DT</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/05/决策树/">DT</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 逆拂 的个人博客">逆拂</a></p>
         <p><span>发布时间:</span>2018年03月05日 - 22时57分</p>
-        <p><span>最后更新:</span>2018年11月27日 - 20时59分</p>
+        <p><span>最后更新:</span>2019年05月27日 - 07时06分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/05/DT/" title="DT">http://yoursite.com/2018/03/05/DT/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/03/05/DT/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/05/决策树/" title="DT">http://yoursite.com/2018/03/05/决策树/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/03/05/决策树/　　作者: 逆拂" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -595,7 +600,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#决策树"><span class="toc-number">1.</span> <span class="toc-text">决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3"><span class="toc-number">1.1.1.</span> <span class="toc-text">ID3</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#熵"><span class="toc-number">1.1.1.0.0.1.</span> <span class="toc-text">熵</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5"><span class="toc-number">1.1.2.</span> <span class="toc-text">C4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gini"><span class="toc-number">1.1.3.</span> <span class="toc-text">Gini</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#distinction"><span class="toc-number">1.2.</span> <span class="toc-text">distinction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Category"><span class="toc-number">1.3.</span> <span class="toc-text">Category</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DT"><span class="toc-number">1.3.1.</span> <span class="toc-text">DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CART"><span class="toc-number">1.3.2.</span> <span class="toc-text">CART</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-DT"><span class="toc-number">1.3.3.</span> <span class="toc-text">Regression DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting-DT"><span class="toc-number">1.3.4.</span> <span class="toc-text">Boosting DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.3.5.</span> <span class="toc-text">GBDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Tree"><span class="toc-number">1.3.6.</span> <span class="toc-text">Random Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成方法"><span class="toc-number">1.3.6.1.</span> <span class="toc-text">生成方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost"><span class="toc-number">1.3.7.</span> <span class="toc-text">AdaBoost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xgboost"><span class="toc-number">1.3.8.</span> <span class="toc-text">xgboost</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Realization-process"><span class="toc-number">1.4.</span> <span class="toc-text">Realization process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relation-know"><span class="toc-number">1.5.</span> <span class="toc-text">Relation know</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分类树与回归树的区别"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">分类树与回归树的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gbdt和xgboost的区别"><span class="toc-number">1.6.</span> <span class="toc-text">gbdt和xgboost的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-number">1.7.</span> <span class="toc-text">Link</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EM"><span class="toc-number">2.</span> <span class="toc-text">EM</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#决策树"><span class="toc-number">1.</span> <span class="toc-text">决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ID3"><span class="toc-number">1.1.1.</span> <span class="toc-text">ID3</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#熵"><span class="toc-number">1.1.1.0.0.1.</span> <span class="toc-text">熵</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C4-5"><span class="toc-number">1.1.2.</span> <span class="toc-text">C4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gini"><span class="toc-number">1.1.3.</span> <span class="toc-text">Gini</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#distinction"><span class="toc-number">1.2.</span> <span class="toc-text">distinction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Category"><span class="toc-number">1.3.</span> <span class="toc-text">Category</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DT"><span class="toc-number">1.3.1.</span> <span class="toc-text">DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CART"><span class="toc-number">1.3.2.</span> <span class="toc-text">CART</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-DT"><span class="toc-number">1.3.3.</span> <span class="toc-text">Regression DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting-DT"><span class="toc-number">1.3.4.</span> <span class="toc-text">Boosting DT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GBDT"><span class="toc-number">1.3.5.</span> <span class="toc-text">GBDT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Random-Tree"><span class="toc-number">1.3.6.</span> <span class="toc-text">Random Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成方法"><span class="toc-number">1.3.6.1.</span> <span class="toc-text">生成方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AdaBoost"><span class="toc-number">1.3.7.</span> <span class="toc-text">AdaBoost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xgboost"><span class="toc-number">1.3.8.</span> <span class="toc-text">xgboost</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Realization-process"><span class="toc-number">1.4.</span> <span class="toc-text">Realization process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relation-know"><span class="toc-number">1.5.</span> <span class="toc-text">Relation know</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分类树与回归树的区别"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">分类树与回归树的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gbdt和xgboost的区别"><span class="toc-number">1.6.</span> <span class="toc-text">gbdt和xgboost的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lgbm和Xgboost的区别"><span class="toc-number">1.7.</span> <span class="toc-text">Lgbm和Xgboost的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-number">1.8.</span> <span class="toc-text">Link</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EM"><span class="toc-number">2.</span> <span class="toc-text">EM</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -670,7 +675,7 @@
             <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/18/fm/">FM衍生的各类算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/HA/">HA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/12/lvs/">lvs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/05/DT/">DT</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/18/fm/">FM衍生的各类算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/12/HA/">HA</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/12/lvs/">lvs</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/05/决策树/">DT</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
